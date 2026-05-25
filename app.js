@@ -261,32 +261,26 @@ function getRandomItem(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function pickTwoGroups(groups) {
-  const firstIndex = Math.floor(Math.random() * groups.length);
-  let secondIndex = Math.floor(Math.random() * groups.length);
+function createQuestion(group) {
+  const questionText = getRandomItem(group.questions);
+  const questionIndex = group.questions.indexOf(questionText);
 
-  while (secondIndex === firstIndex) {
-    secondIndex = Math.floor(Math.random() * groups.length);
-  }
-
-  return [groups[firstIndex], groups[secondIndex]];
+  return {
+    group: group.title,
+    section: group.section,
+    number: group.startNumber + questionIndex,
+    text: questionText
+  };
 }
 
 function createTicket(directionKey) {
   const direction = directions[directionKey];
-  const pickedGroups = pickTwoGroups(direction.groups);
+  const isitGroup = direction.groups.find(
+    (group) => group.title === "Информационные системы и технологии"
+  );
+  const secondQuestionGroups = direction.groups.filter((group) => group !== isitGroup);
 
-  return pickedGroups.map((group) => {
-    const questionText = getRandomItem(group.questions);
-    const questionIndex = group.questions.indexOf(questionText);
-
-    return {
-      group: group.title,
-      section: group.section,
-      number: group.startNumber + questionIndex,
-      text: questionText
-    };
-  });
+  return [createQuestion(isitGroup), createQuestion(getRandomItem(secondQuestionGroups))];
 }
 
 function clearTicket() {
@@ -311,7 +305,7 @@ function renderTicket() {
         <h2 class="ticket__title">Билет #${ticketCounters[directionKey]}</h2>
         <p class="ticket__direction">${direction.title} — ${direction.subtitle}</p>
       </div>
-      <span class="badge badge--accent">2 разных блока</span>
+      <span class="badge badge--accent">1-й вопрос всегда ИСИТ</span>
     </div>
     <div class="questions">
       ${questions
