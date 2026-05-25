@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Госэкзамен — генератор билетов</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="hero" aria-labelledby="app-title">
+        <div class="hero__content">
+          <p class="eyebrow">Теоретическая часть</p>
+          <h1 id="app-title">Генератор билетов для госэкзамена</h1>
+          <p class="hero__text">
+            Выберите направление и получите билет из двух случайных вопросов. Вопросы в билете всегда берутся из разных тематических блоков.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Настройки генерации билета">
+        <div class="direction-switch" role="radiogroup" aria-label="Направление подготовки">
+          <label class="direction-card">
+            <input type="radio" name="direction" value="content" checked />
+            <span>
+              <strong>Контент</strong>
+              <small>ИТ-технологии создания цифрового контента</small>
+            </span>
+          </label>
+          <label class="direction-card">
+            <input type="radio" name="direction" value="pid" />
+            <span>
+              <strong>ПИД</strong>
+              <small>Прикладная информатика в дизайне</small>
+            </span>
+          </label>
+        </div>
+
+        <button class="generate-button" id="generateTicket" type="button">
+          Сгенерировать билет
+        </button>
+      </section>
+
+      <section class="ticket" id="ticket" aria-live="polite">
+        <div class="ticket__empty">
+          <p>Нажмите кнопку, чтобы получить первый билет.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
